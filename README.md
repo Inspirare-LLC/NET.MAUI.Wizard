@@ -4,6 +4,9 @@ Simple .NET MAUI wizard control
 # Nuget package
 Available as nuget package at https://www.nuget.org/packages/NET.MAUI.Wizard/
 
+# Initialization
+You must call `UseMauiWizard()` in `MauiProgram.cs` during initialization.
+
 # Usage
 
 - Create wizard item view models for each step in the wizard
