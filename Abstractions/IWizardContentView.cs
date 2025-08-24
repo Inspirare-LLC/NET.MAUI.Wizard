@@ -4,9 +4,9 @@ namespace NET.MAUI.Wizard.Abstractions
 {
     public interface IWizardContentView
     {
-        Task<bool> OnNext(IWizardViewModel viewModel);
-        Task<bool> OnPrevious(IWizardViewModel viewModel);
-        Task OnAppearing();
-        Task OnDisappearing();
+        Task<bool> OnNextAsync(IWizardViewModel viewModel);
+        Task<bool> OnPreviousAsync(IWizardViewModel viewModel);
+        Task OnAppearingAsync();
+        Task OnDisappearingAsync();
     }
 }

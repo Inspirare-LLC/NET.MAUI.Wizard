@@ -249,7 +249,7 @@ namespace NET.MAUI.Wizard.ViewModels
 
             await InitializeWizardItem(item, true, isNext);
 
-            await CurrentItem.View.OnAppearing();
+            await CurrentItem.View.OnAppearingAsync();
         }
 
         public async Task<bool> IncreaseCurrentItemIndex(bool skip = false)
@@ -262,7 +262,7 @@ namespace NET.MAUI.Wizard.ViewModels
             //if skip, don't call on next
             if (!skip)
             {
-                var result = await item.OnNext(itemViewModel);
+                var result = await item.OnNextAsync(itemViewModel);
                 if (!result)
                     return false;
             }
@@ -286,7 +286,7 @@ namespace NET.MAUI.Wizard.ViewModels
                 NextButtonLabel = _finishButtonLabelText;
             }
 
-            await item.OnDisappearing();
+            await item.OnDisappearingAsync();
 
             _currentItemIndex = newIndex;
             ProgressBarProgress = Math.Truncate(10 * (double)(_currentItemIndex + 1) / (Items.Count == 0 ? 1 : Items.Count)) / 10;
@@ -303,7 +303,7 @@ namespace NET.MAUI.Wizard.ViewModels
             var item = Items[_currentItemIndex].View;
             var itemViewModel = Items[_currentItemIndex].ViewModel;
 
-            var result = await item.OnPrevious(itemViewModel);
+            var result = await item.OnPreviousAsync(itemViewModel);
             if (!result)
                 return false;
 
@@ -316,7 +316,7 @@ namespace NET.MAUI.Wizard.ViewModels
                 NextButtonLabel = _nextButtonLabelText;
             }
 
-            await item.OnDisappearing();
+            await item.OnDisappearingAsync();
 
             _currentItemIndex = newIndex;
             ProgressBarProgress = Math.Truncate(10 * (double)(_currentItemIndex + 1) / (Items.Count == 0 ? 1 : Items.Count)) / 10;

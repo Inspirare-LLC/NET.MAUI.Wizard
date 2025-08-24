@@ -77,6 +77,6 @@ public partial class WizardContentView : ContentView
         if (_viewModel.CurrentItem.View == null)
             return Task.CompletedTask;
 
-        return (_viewModel.CurrentItem.View as IWizardContentView)?.OnAppearing();
+        return (_viewModel.CurrentItem.View as IWizardContentView)?.OnAppearingAsync();
     }
 }
