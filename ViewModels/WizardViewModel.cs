@@ -185,6 +185,7 @@ namespace NET.MAUI.Wizard.ViewModels
             var item = Items[0];
 
             InitializeWizardItem(item);
+            ProgressBarProgress = Math.Truncate(10 * (double)(_currentItemIndex + 1) / (Items.Count == 0 ? 1 : Items.Count)) / 10;
 
             //Initialize commands
             BackCommand = new Command(async () => await BackAsync());
@@ -247,7 +248,7 @@ namespace NET.MAUI.Wizard.ViewModels
             if (item == null)
                 return;
 
-            await InitializeWizardItem(item, true, isNext);
+            await InitializeWizardItem(item, true, isNext, previousViewModel);
 
             await CurrentItem.View.OnAppearingAsync();
         }
@@ -329,10 +330,13 @@ namespace NET.MAUI.Wizard.ViewModels
             return _currentItemIndex;
         }
 
-        private async Task InitializeWizardItem(WizardItemViewModel item, bool performTranslation = false, bool isNext = false)
+        private async Task InitializeWizardItem(WizardItemViewModel item, bool performTranslation = false, bool isNext = false, IWizardViewModel? previousViewModel = null)
         {
             var args = new List<object>(1 + item.AdditionalConstructorParameters.Count());
             args.Add(item.ViewModel);
+
+            if (previousViewModel != null)
+                args.Add(previousViewModel);
 
             if (item.AdditionalConstructorParameters.Any())
                 args.AddRange(item.AdditionalConstructorParameters);
@@ -344,7 +348,7 @@ namespace NET.MAUI.Wizard.ViewModels
 
             //If service provider is present, try to get view via DI
             if (_serviceProvider != null)
-                view = _serviceProvider.GetService(item.Type) as IWizardContentView;
+                view = ActivatorUtilities.CreateInstance(_serviceProvider, item.Type, args.ToArray()) as IWizardContentView;
 
             //If view is still null, create it manually
             if (view == null)
