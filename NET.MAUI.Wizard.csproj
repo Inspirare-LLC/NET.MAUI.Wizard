@@ -23,6 +23,9 @@
 		<Product>.NET MAUI Wizard</Product>
 		<Description>Simple .NET MAUI wizard</Description>
 		<PackageProjectUrl>https://github.com/Inspirare-LLC/NET.MAUI.Wizard</PackageProjectUrl>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<FileVersion>1.1.0.0</FileVersion>
+		<Version>1.1.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
